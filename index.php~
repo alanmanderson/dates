@@ -1,0 +1,108 @@
+<!--
+  copyright (c) 2009 google inc.
+
+  You are free to copy and use this sample.
+  License can be found here: http://code.google.com/apis/ajaxsearch/faq/#license
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+		<title>FastQs Push Question</title>
+		<link rel="stylesheet" type="text/css" href="main.css" />
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript" src="jquery.label_over.js"></script>
+		<script type="text/javascript">
+				$(function() {
+					$('label.targetLabel').labelOver('labelover'); 
+				})
+			
+				$(function() {
+					$("#btnAddEvent").click(function() {
+						document.myForm.submit();
+					})
+				})
+				
+				document.body.onkeypress = function (event) {
+					event = event || window.event;
+					if (event.keycode = 13) {
+						document.myForm.submit();
+					}
+				}
+
+
+						// $.ajax({
+							// url: 'addEvent.php',
+							// type: 'POST',
+							// data: {'username': document.myForm.txtUsername.value, 'password': document.myForm.txtPassword.value},
+				//			dataType: 'text',
+				//			timeout: 20000,
+				//			error: function(){				      
+				//				alert('Failed to communicate to the server. Try again!');
+				//			},
+							// success: function(text){
+								// if (text=="OK") {
+									// window.location.href="movies.php";
+								// } else {
+									// alert("there");
+								// }
+								
+							// }
+						// });
+					// });
+				// })
+			</script>
+	</head>
+  <body style="font-family: Arial;border: 0 none;">
+		<form action="addEvent.php" name="myForm" method="POST">
+			<table>
+				<tr>
+					<td>
+						<div class="labledfield" style="position: relative;  clear: left;"> 
+							<label class="targetLabel" for="txtPerson">Person</label>
+							<input type="text" id="txtPerson" name="txtPerson" tabindex="1"/>
+						</div>
+					</td>
+					<td>
+						<div class="labledfield" style="position: relative;  clear: left;">
+							<label class="targetLabel" for="txtDate">Date (yyyy-mm-dd)</label>
+							<input type="text" id="txtDate" name="txtDate" tabindex="2"/>
+						</div>
+					</td>
+					<td>
+						<div class="labledfield" style="position: relative;  clear: left;">
+							<label class="targetLabel" for="txtOccasion">Occasion</label>
+							<input type="text" id="txtOccasion" name="txtOccasion" value="Birthday" tabindex="3"/>
+						</div>
+					</td>
+					<td>
+						<div class="button" id="btnAddEvent" tabindex="4" onKeyPress="document.myForm.submit()">
+							Add Event
+						</div>
+						<input type="submit" style="display:none"/>
+					</td>
+				</tr>
+			</table>
+			<table>
+				<?php
+					$mydb = mysql_connect("sql.mit.edu", "alanma", "daBrav3s") or die(mysql_error());
+					mysql_select_db("alanma+dates") or die(mysql_error());
+					
+					$sql="SELECT * FROM Dates ORDER BY Month(Date), Day(Date)";
+					$results=mysql_query($sql);
+					while($row=mysql_fetch_array($results)){
+						echo("<tr><td>");
+						echo $row['Names'];
+						echo("</td><td>");
+						echo $row['Date'];
+						echo("</td><td>");
+						echo $row['Occasion'];
+						echo("</td></tr>");
+					}
+				?>
+			</table>
+		</form>
+  </body>
+</html>
+	

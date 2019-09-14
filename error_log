@@ -1,0 +1,1 @@
+[08-Jun-2013 08:59:12] PHP Warning:  mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: Unknown MySQL server host 'sql.mit.edu' (0) in /home3/alanmand/public_html/dates/index.php on line 93
